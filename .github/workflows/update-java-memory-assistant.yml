@@ -42,7 +42,7 @@ jobs:
                 YJ_VERSION: 5.0.0
             - uses: actions/checkout@v2
             - id: dependency
-              uses: docker://docker.io/paketo-buildpacks/actions/github-release-dependency:main
+              uses: docker://ghcr.io/paketo-buildpacks/actions/github-release-dependency:main
               with:
                 glob: java-memory-assistant-+..jar
                 owner: sap
