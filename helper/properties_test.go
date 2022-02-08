@@ -19,7 +19,10 @@ package helper_test
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"testing"
+
+	"github.com/paketo-buildpacks/libpak/effect"
 
 	. "github.com/onsi/gomega"
 	"github.com/paketo-buildpacks/java-memory-assistant/helper"
@@ -29,13 +32,18 @@ import (
 func testProperties(t *testing.T, context spec.G, it spec.S) {
 	var (
 		Expect = NewWithT(t).Expect
-
-		p helper.Properties
+		Exec   = effect.NewExecutor()
+		p      helper.Properties
 	)
+
+	it.Before(func() {
+		Expect(os.Setenv("BPL_JMA_ENABLED", "true")).To(Succeed())
+		p.Executor = Exec
+	})
 
 	it("contributes base JMA configuration", func() {
 		Expect(p.Execute()).To(Equal(map[string]string{
-			"JAVA_TOOL_OPTIONS": fmt.Sprintf("-Djma.check_interval=5s -Djma.max_frequency=1/1m -Djma.heap_dump_folder=%s", os.TempDir()),
+			"JAVA_TOOL_OPTIONS": fmt.Sprintf("--add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED -Djma.check_interval=5s -Djma.log_level=ERROR -Djma.max_frequency=1/1m -Djma.heap_dump_folder=%s -Djma.thresholds.heap=80%%", filepath.Join(os.TempDir(), "jma")),
 		}))
 	})
 
@@ -43,7 +51,7 @@ func testProperties(t *testing.T, context spec.G, it spec.S) {
 		it("contributes all arguments to JMA configuration", func() {
 			Expect(os.Setenv("BPL_JMA_ARGS", "check_interval=10s,max_frequency=1/1m,heap_dump_folder=/tmp/,thresholds.heap=80%,log_level=DEBUG")).To(Succeed())
 			Expect(p.Execute()).To(Equal(map[string]string{
-				"JAVA_TOOL_OPTIONS": "-Djma.check_interval=10s -Djma.max_frequency=1/1m -Djma.heap_dump_folder=/tmp/ -Djma.thresholds.heap=80% -Djma.log_level=DEBUG"}))
+				"JAVA_TOOL_OPTIONS": "--add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED -Djma.check_interval=10s -Djma.max_frequency=1/1m -Djma.heap_dump_folder=/tmp/ -Djma.thresholds.heap=80% -Djma.log_level=DEBUG"}))
 		})
 	})
 
@@ -59,7 +67,7 @@ func testProperties(t *testing.T, context spec.G, it spec.S) {
 		it("contributes configuration appended to existing $JAVA_TOOL_OPTIONS", func() {
 			Expect(os.Setenv("BPL_JMA_ARGS", "check_interval=10s,thresholds.heap=80%")).To(Succeed())
 			Expect(p.Execute()).To(Equal(map[string]string{
-				"JAVA_TOOL_OPTIONS": "test-java-tool-options -Djma.check_interval=10s -Djma.thresholds.heap=80%",
+				"JAVA_TOOL_OPTIONS": "test-java-tool-options --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED -Djma.check_interval=10s -Djma.thresholds.heap=80%",
 			}))
 		})
 	})
