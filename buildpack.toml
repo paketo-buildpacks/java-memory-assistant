@@ -16,7 +16,7 @@ api = "0.7"
 
 [buildpack]
   id = "paketo-buildpacks/java-memory-assistant"
-  name = "Java Memory Assistant Buildpack"
+  name = "Paketo Java Memory Assistant Buildpack"
   version = "{{.version}}"
   homepage = "https://github.com/paketo-buildpacks/java-memory-assistant"
   description = "A Cloud Native Buildpack that installs the Java Memory Assistant agent"
@@ -36,6 +36,7 @@ api = "0.7"
     "bin/build",
     "bin/detect",
     "bin/main",
+    "bin/helper",
     "buildpack.toml",
   ]
 
