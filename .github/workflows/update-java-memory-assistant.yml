@@ -44,7 +44,7 @@ jobs:
             - id: dependency
               uses: docker://ghcr.io/paketo-buildpacks/actions/github-release-dependency:main
               with:
-                glob: java-memory-assistant-+..jar
+                glob: java-memory-assistant-(.+).jar
                 owner: sap
                 repository: java-memory-assistant
                 token: ${{ secrets.JAVA_GITHUB_TOKEN }}
