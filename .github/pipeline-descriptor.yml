@@ -21,7 +21,6 @@ dependencies:
   uses:         docker://ghcr.io/paketo-buildpacks/actions/github-release-dependency:main
   with:
     owner:      sap
-    glob:       java-memory-assistant-+..jar
+    glob:       java-memory-assistant-(.+).jar
     repository: java-memory-assistant
-    tag_filter: '[\d]+\.[\d]+\.[\d]+'
     token:      ${{ secrets.JAVA_GITHUB_TOKEN }}
