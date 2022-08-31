@@ -19,7 +19,7 @@ api = "0.7"
   homepage = "https://github.com/paketo-buildpacks/java-memory-assistant"
   id = "paketo-buildpacks/java-memory-assistant"
   keywords = ["agent"]
-  name = "Paketo Java Memory Assistant Buildpack"
+  name = "Paketo Buildpack for Java Memory Assistant"
   sbom-formats = ["application/vnd.syft+json", "application/vnd.cyclonedx+json"]
   version = "{{.version}}"
 
