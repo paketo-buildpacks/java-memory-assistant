@@ -1,6 +1,6 @@
 # `gcr.io/paketo-buildpacks/java-memory-assistant`
 
-The Paketo Java Memory Assistant Buildpack is a Cloud Native Buildpack that configures the SAP Java Memory Assistant (JMA) Agent for Java applications.
+The Paketo Buildpack for Java Memory Assistant is a Cloud Native Buildpack that configures the SAP Java Memory Assistant (JMA) Agent for Java applications.
 
 ## Behavior
 This buildpack will participate if all the following conditions are met
