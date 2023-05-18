@@ -17,7 +17,9 @@
 package java_memory_assistant
 
 import (
+	"github.com/paketo-buildpacks/libpak/bard"
 	"github.com/paketo-buildpacks/libpak/sherpa"
+	"os"
 
 	"github.com/buildpacks/libcnb"
 )
@@ -31,7 +33,9 @@ type Detect struct {
 
 func (d Detect) Detect(context libcnb.DetectContext) (libcnb.DetectResult, error) {
 
+	l := bard.NewLogger(os.Stdout)
 	if val := sherpa.ResolveBool("BP_JMA_ENABLED"); !val {
+		l.Logger.Info("SKIPPED: BP_JMA_ENABLED was not set to true")
 		return libcnb.DetectResult{Pass: false}, nil
 	}
 
