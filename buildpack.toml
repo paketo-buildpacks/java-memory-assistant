@@ -55,6 +55,8 @@ api = "0.7"
     name = "Java Memory Assistant Agent"
     purl = "pkg:generic/sap-java-memory-assistant@0.5.0?arch=amd64"
     sha256 = "9c5ffb4bdeec5ed6b4f1d734469500754a857d1452c3d253d89e2315addb04c5"
+    source = "https://github.com/sap/java-memory-assistant/archive/refs/tags/0.5.0.tar.gz"
+    source-sha256 = "dedf82a5c10df5b12e602c1237f00a459a38b6a55c0ff8d671fa0d3909dfe4fc"
     stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*"]
     uri = "https://github.com/SAP-archive/java-memory-assistant/releases/download/0.5.0/java-memory-assistant-0.5.0.jar"
     version = "0.5.0"
