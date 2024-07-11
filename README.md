@@ -2,6 +2,12 @@
 
 The Paketo Buildpack for Java Memory Assistant is a Cloud Native Buildpack that configures the SAP Java Memory Assistant (JMA) Agent for Java applications.
 
+## Status
+
+The Java Memory Assistant upstream project was archived in [September of 2023](https://github.com/SAP-archive/java-memory-assistant/commit/1fe8b4fd6f46b5ed2db4e251f2286ef46e015a96). It is unmaintained and will produce no further updates.
+
+The Java Memory Assistant buildpack will continue to ship the final artifact produced by the upstream project because we believe it to be safe to continue using and we believe it to be useful to our users. Until that changes, we will continue releasing updated versions of the buildpack. These are **ONLY** updates to the buildpack itself though, the Paketo team is not maintaining the upstream project, and cannot/will not produce updates for it.
+
 ## Behavior
 This buildpack will participate if all the following conditions are met
 
