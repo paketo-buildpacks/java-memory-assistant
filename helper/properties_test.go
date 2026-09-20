@@ -37,7 +37,7 @@ func testProperties(t *testing.T, context spec.G, it spec.S) {
 	)
 
 	it.Before(func() {
-		Expect(os.Setenv("BPL_JMA_ENABLED", "true")).To(Succeed())
+		t.Setenv("BPL_JMA_ENABLED", "true")
 		p.Executor = Exec
 	})
 
@@ -49,7 +49,7 @@ func testProperties(t *testing.T, context spec.G, it spec.S) {
 
 	context("$BPL_JMA_ARGS is set", func() {
 		it("contributes all arguments to JMA configuration", func() {
-			Expect(os.Setenv("BPL_JMA_ARGS", "check_interval=10s,max_frequency=1/1m,heap_dump_folder=/tmp/,thresholds.heap=80%,log_level=DEBUG")).To(Succeed())
+			t.Setenv("BPL_JMA_ARGS", "check_interval=10s,max_frequency=1/1m,heap_dump_folder=/tmp/,thresholds.heap=80%,log_level=DEBUG")
 			Expect(p.Execute()).To(Equal(map[string]string{
 				"JAVA_TOOL_OPTIONS": "--add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED -Djma.check_interval=10s -Djma.max_frequency=1/1m -Djma.heap_dump_folder=/tmp/ -Djma.thresholds.heap=80% -Djma.log_level=DEBUG"}))
 		})
@@ -57,15 +57,11 @@ func testProperties(t *testing.T, context spec.G, it spec.S) {
 
 	context("$JAVA_TOOL_OPTIONS", func() {
 		it.Before(func() {
-			Expect(os.Setenv("JAVA_TOOL_OPTIONS", "test-java-tool-options")).To(Succeed())
-		})
-
-		it.After(func() {
-			Expect(os.Unsetenv("JAVA_TOOL_OPTIONS")).To(Succeed())
+			t.Setenv("JAVA_TOOL_OPTIONS", "test-java-tool-options")
 		})
 
 		it("contributes configuration appended to existing $JAVA_TOOL_OPTIONS", func() {
-			Expect(os.Setenv("BPL_JMA_ARGS", "check_interval=10s,thresholds.heap=80%")).To(Succeed())
+			t.Setenv("BPL_JMA_ARGS", "check_interval=10s,thresholds.heap=80%")
 			Expect(p.Execute()).To(Equal(map[string]string{
 				"JAVA_TOOL_OPTIONS": "test-java-tool-options --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED -Djma.check_interval=10s -Djma.thresholds.heap=80%",
 			}))

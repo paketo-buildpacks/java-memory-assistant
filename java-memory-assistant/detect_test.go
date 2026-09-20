@@ -17,7 +17,6 @@
 package java_memory_assistant_test
 
 import (
-	"os"
 	"testing"
 
 	java_memory_assistant "github.com/paketo-buildpacks/java-memory-assistant/java-memory-assistant"
@@ -35,15 +34,9 @@ func testDetect(t *testing.T, context spec.G, it spec.S) {
 		detect java_memory_assistant.Detect
 	)
 
-	it.Before(func() {
-		Expect(os.Setenv("BP_JMA_ENABLED", "true")).To(Succeed())
-	})
-
-	it.After(func() {
-		Expect(os.Unsetenv("BP_JMA_ENABLED")).To(Succeed())
-	})
-
 	it("passes detection", func() {
+		t.Setenv("BP_JMA_ENABLED", "true")
+
 		Expect(detect.Detect(ctx)).To(Equal(libcnb.DetectResult{
 			Pass: true,
 			Plans: []libcnb.BuildPlan{
@@ -61,7 +54,7 @@ func testDetect(t *testing.T, context spec.G, it spec.S) {
 	})
 
 	it("BP_JMA_ENABLED was not set", func() {
-		Expect(os.Unsetenv("BP_JMA_ENABLED")).To(Succeed())
+		t.Setenv("BP_JMA_ENABLED", "false")
 
 		Expect(detect.Detect(ctx)).To(Equal(libcnb.DetectResult{
 			Pass:  false,
