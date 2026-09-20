@@ -33,10 +33,10 @@ type javaMemoryAssistant struct {
 	Logger           bard.Logger
 }
 
-func JavaMemoryAssistant(dependency libpak.BuildpackDependency, cache libpak.DependencyCache) (javaMemoryAssistant, libcnb.BOMEntry) {
+func JavaMemoryAssistant(dependency libpak.BuildpackDependency, cache libpak.DependencyCache) (javaMemoryAssistant, libcnb.BOMEntry) { //nolint:staticcheck // hold off on the BOM migration for now
 
 	// Call libpak method to create a new 'contributor' which contributes our dependency to a 'Launch' layer
-	contributor, entry := libpak.NewDependencyLayer(dependency, cache, libcnb.LayerTypes{
+	contributor, entry := libpak.NewDependencyLayer(dependency, cache, libcnb.LayerTypes{ //nolint:staticcheck // hold off on the BOM migration for now
 		Launch: true,
 	})
 	return javaMemoryAssistant{LayerContributor: contributor}, entry

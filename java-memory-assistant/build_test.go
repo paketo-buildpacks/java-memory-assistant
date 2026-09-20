@@ -25,6 +25,7 @@ import (
 	"github.com/sclevine/spec"
 )
 
+//nolint:staticcheck // hold off on the BOM migration for now
 func testBuild(t *testing.T, context spec.G, it spec.S) {
 
 	var (

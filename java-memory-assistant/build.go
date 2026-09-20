@@ -55,11 +55,11 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 
 		jma, be := JavaMemoryAssistant(agentDependency, dc)
 		result.Layers = append(result.Layers, jma)
-		result.BOM.Entries = append(result.BOM.Entries, be)
+		result.BOM.Entries = append(result.BOM.Entries, be) //nolint:staticcheck // hold off on the BOM migration for now
 
-		p, be := libpak.NewHelperLayer(context.Buildpack, "properties")
+		p, be := libpak.NewHelperLayer(context.Buildpack, "properties") //nolint:staticcheck // hold off on the BOM migration for now
 		result.Layers = append(result.Layers, p)
-		result.BOM.Entries = append(result.BOM.Entries, be)
+		result.BOM.Entries = append(result.BOM.Entries, be) //nolint:staticcheck // hold off on the BOM migration for now
 
 	}
 	return result, nil
