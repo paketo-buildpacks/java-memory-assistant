@@ -18,7 +18,6 @@ package java_memory_assistant_test
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -40,10 +39,10 @@ func testJavaAgent(t *testing.T, context spec.G, it spec.S) {
 	it.Before(func() {
 		var err error
 
-		ctx.Buildpack.Path, err = ioutil.TempDir("", "assistant-agent-buildpack")
+		ctx.Buildpack.Path, err = os.MkdirTemp("", "assistant-agent-buildpack")
 		Expect(err).NotTo(HaveOccurred())
 
-		ctx.Layers.Path, err = ioutil.TempDir("", "assistant-agent-layers")
+		ctx.Layers.Path, err = os.MkdirTemp("", "assistant-agent-layers")
 		Expect(err).NotTo(HaveOccurred())
 	})
 
